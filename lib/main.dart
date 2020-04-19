@@ -1,10 +1,9 @@
 import 'package:flutter/material.dart';
 
 import './question.dart';
+import './answer.dart';
 
-void main() {
-  runApp(MyApp());
-}
+void main() => runApp(MyApp());
 
 class MyApp extends StatefulWidget {
   @override
@@ -33,21 +32,11 @@ class _MyAppState extends State<MyApp> {
         ),
         body: Column(
           children: <Widget>[
-            Question(questions.elementAt(_questionIndex)),
-            RaisedButton(
-              child: Text('Answer 1'),
-              onPressed: _answerQuestion,
-            ),
-            RaisedButton(
-              child: Text('Answer 2'),
-              onPressed: () {
-                print("Answer 2 choosen!");
-              },
-            ),
-            RaisedButton(
-              child: Text('Answer 2'),
-              onPressed: () => print("Answer 3 choosen!"),
-            ),
+            Question(questions[_questionIndex]["questionText"]),
+            ...(questions[_questionIndex]["answers"] as List<String>)
+                .map((answer) {
+              return Answer(_answerQuestion, answer);
+            }).toList()
           ],
         ),
       ),
@@ -55,7 +44,17 @@ class _MyAppState extends State<MyApp> {
   }
 }
 
-var questions = [
-  "What is yout faviorite color?",
-  "What is your faviorite animal?"
+const questions = [
+  {
+    "questionText": "What is yout faviorite color?",
+    "answers": ["black", "blue", "Green", "None of them"]
+  },
+  {
+    "questionText": "What is your faviorite animal?",
+    "answers": ["Rabbit", "blue whale", "Green snake", "None of them"]
+  },
+  {
+    "questionText": "What is your faviorite person?",
+    "answers": ["UK", "usk", "Xav", "None of them"]
+  },
 ];
